@@ -79,7 +79,7 @@ unsigned char getImg(unsigned char row, unsigned char col){
 }
 
 
-void display_logo(){
+void display_logo(void(*callback)()){
   oled.startScreen();
   int image_offset = 3;
   uint8_t data[4];
@@ -117,5 +117,5 @@ void display_logo(){
         Wire.endTransmission();
     }
   }  
-
+  callback();
 }
