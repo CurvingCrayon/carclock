@@ -21,8 +21,8 @@ int num = 0;
 
 
 
-int b1_state = 0;
-int b1_prev_input = 0;
+int b1_state = 1;
+int b1_prev_input = 1;
 unsigned long b1_change_start = 0;
 unsigned long b1_rise_time = 0;
 unsigned long b1_fall_time = 0;
@@ -68,11 +68,20 @@ void show(){
     }
   }
 }
-void c(){}
-#define B1_PIN 3
-#define LONG_PRESS 200
-
 void loop2();
+void c(){
+//  delay(1000);
+//  state_start = millis();
+//
+//  b1_change_start = millis();
+//  while(true){
+//    loop2();
+//  }
+}
+#define B1_PIN 3
+#define LONG_PRESS 500
+
+
 void setup()
 {
     pinMode(B1_PIN, INPUT); 
@@ -81,7 +90,7 @@ void setup()
    
     display_logo(c);
    
-    delay(1000);
+    delay(3000);
     state_start = millis();
 
     b1_change_start = millis();
@@ -111,16 +120,18 @@ void loop2()
       if(m - b1_change_start > DB_TIME){
         b1_state = b1_input;
 //        b1_change_start = m;
-//        if(b1_input == 1){ //Button release
-//          b1_rise_time = m;
+        if(b1_input == 1){ //Button release
+//            = m;
+          b1_press = true;
 //          if(!b1_long_pressed){ //If a long press was not done
 //             b1_press = true;
 //          }
-//          b1_long_pressed = false;
-//        }
+//          
+        }
 //        else{ //Button press
 //          b1_fall_time = m;
 //        }
+//           b1_long_pressed = false;
       }
     }
     else{
@@ -140,9 +151,11 @@ void loop2()
   
   if(b1_press){ //If button 1 is pressed
     //fsm_index++;
+    num++;
   }
   if(b1_long_press){
     //fsm_index += 3;
+    num+=3;
   }
   //Refresh current state based on state's defined interval
   State curr_state = fsm[fsm_index];
